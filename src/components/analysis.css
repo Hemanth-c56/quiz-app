@@ -1,0 +1,244 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing : border-box;
+}
+
+.analysis-body{
+    min-height: 100vh;
+    /* border: 2px solid red; */
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+
+.analysis-container{
+    /* border: 2px solid green; */
+    width: 900px;
+    margin: 0px 10px;
+}
+
+.quiz-analysis{
+    /* border: 2px solid blue; */
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin-bottom: 20px; */
+}
+.correct{
+    height: 100px;
+    width: 100px;
+    /* border: 1px solid black; */
+    margin: 10px 0px;
+}
+.score-title{
+    font-size: 1.5rem;
+    margin-top: 5px;
+}
+.score-board{
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(15 43 207);
+    font-size: 5rem;    
+    font-weight: bolder;
+}
+.wish-msg{
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 15px 0px;
+}
+.data-analysis{
+    border: 2px solid grey;
+    height: auto;
+    width: 100%;
+    display: flex;
+}
+.data-box-1{
+    /* border: 1px solid blue; */
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 20px;
+    padding: 10px;
+    font-size: 1.4rem;
+}
+.data-box-2{
+    /* border: 1px solid red; */
+    flex: 1;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 20px;
+    padding: 10px;
+    font-size: 1.4rem;
+}
+.answer-btn-div{
+    /* border: 2px solid green; */
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 10px;
+}
+.answer-button{
+    /* border: 1px solid black; */
+    margin-top: 25px;
+    padding: 12px;
+    font-size: 2rem;
+    font-weight: bold;
+    background: rgb(0, 138, 0);
+    color: white;
+    border: none;
+    border-radius: 20%;
+    box-shadow: 0px 0px 2px 1px #00af06;
+}
+.answer-button:active{
+    scale: 0.9;
+}
+
+.answer-container{
+    border: 2px solid grey;
+    margin: 35px 0px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.2fr 1fr;
+}
+
+.question-box{
+    font-size: 1.7rem;
+    border-bottom: 1px solid grey;
+    padding: 5px;
+}
+.answer-box{
+    font-size: 1.5rem;
+    padding: 5px;
+    border-bottom: 1px solid grey;
+}
+.ans-text{
+    color: rgb(115, 0, 115);
+}
+.explanation-div{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.explanation-text{
+    font-size: 1.4rem;
+    color: #3b3535;
+}
+.explanation-div .exp-button{
+    height: 33px;
+    width: 33px;
+}
+.matter-div{
+    padding: 0px 5px;
+    height: 0;
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+}
+.exp-matter{
+    font-size: 1.1rem;
+    color: #000064;
+}
+.expanded {
+    height: 60px;
+    overflow: scroll;
+    opacity: 1;
+}
+.expanded::-webkit-scrollbar{
+    display: none;
+}
+/* ----------------------------------responsive----------------------------- */
+@media(max-width:484px){
+    .correct{
+        height: 90px;
+        width: 90px;
+    }
+    .score-title{
+        font-size: 1.2rem;
+    }
+    .score-board{
+        font-size: 4rem;
+    }
+    .wish-msg{
+        font-size: 1.5rem;
+    }
+    .data-box-1{
+        margin-left: 10px; 
+        font-size: 1.2rem;
+    }
+    .data-box-2{
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+    .question-box{
+        font-size: 1.5rem;
+    }
+    .answer-box{
+        font-size: 1.3rem;
+    }
+    .explanation-text{
+        font-size: 1.2rem;
+    }
+    .explanation-div .exp-button {
+    height: 30px;
+    width: 30px;
+    }
+    .exp-matter{
+        font-size: 1rem;
+    }
+    .answer-button{
+        padding: 7px;
+        font-size: 1.7rem;
+    }
+}
+@media(max-width:387px){
+    .score-title{
+        font-size: 1rem;
+    }
+    .score-board{
+        font-size: 3.8rem;
+    }
+    .wish-msg{
+        font-size: 1.3rem;
+    }
+    .data-box-1{
+        margin-left: 0px; 
+        font-size: 1rem;
+        flex: 5;
+        padding-left: 3px;
+    }
+    .data-box-2{
+        margin-right: 0px;
+        font-size: 1rem;
+        flex: 1;
+        padding-right: 3px;
+    }
+    .data-analysis{
+        width: 111%;
+    }
+    .answer-button {
+        padding: 6px;
+        font-size: 1.5rem;
+    }
+    .question-box {
+        font-size: 1.2rem;
+    }
+    .answer-box {
+        font-size: 1.1rem;
+    }
+    .explanation-text {
+        font-size: 1rem;
+    }
+    .explanation-div .exp-button {
+        height: 25px;
+        width: 25px;
+    }
+    .exp-matter {
+        font-size: 0.9rem;
+    }
+}

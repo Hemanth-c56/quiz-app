@@ -1,0 +1,104 @@
+import React, { useState , useEffect } from 'react';
+import './quiz.css';
+import Questions from "./questions"
+// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import correctNotification from "../audio/correct-answer.mp3"
+import wrongNotification from "../audio/wrong-answer.mp3"
+import buttonSound from "../audio/button-sound.mp3"
+
+export default function Quiz() {
+
+  var [Attempted,setAttempted] = useState(0)
+  var [Unattempted,setUnattempted] = useState(Questions.length)
+  var [Qattempted , setQattempted] = useState([])
+  var [score, setscore] = useState(0)
+  var [correct , setcorrect] = useState(0)
+  const navigate = useNavigate()
+  const correctAudio = new Audio(correctNotification);
+  const wrongAudio = new Audio(wrongNotification);
+  const buttonAudio = new Audio(buttonSound);
+  const quizDuration = 10 * 60 * 1000; // 2 minutes in milliseconds
+  const [timer, setTimer] = useState(quizDuration);
+
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1000);
+    }, 1000);
+
+    return () => {
+      clearInterval(timerInterval);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (timer <= 0) {
+      // Timer has expired, automatically submit the quiz
+      toAnalysis();
+    }
+  }, [timer]);
+
+  function handleOption(event){
+    var option = event.target;
+    var classes = (option.className).split(' ')
+    var n = classes.length - 1
+    
+// -------------------logic for selecting only one option----------------------------
+    if(Qattempted.includes(classes[n])){}
+    else{ 
+      if(classes[n-1] === option.id){
+        setscore(score+1)
+        setcorrect(correct+1)
+        option.style.border = "1px solid green"
+        option.style.background = "green"
+        option.style.color = "white"
+        correctAudio.play()
+      }
+      else{
+        option.style.border = "1px solid red"
+        option.style.background = "#da0101"
+        option.style.color = "white"
+        wrongAudio.play()
+      }
+// --------------------------------------------------------------------------------
+      setQattempted((preval)=>{
+        return [...preval,classes[n]]
+      })
+      setAttempted(Attempted + 1)
+      setUnattempted(Unattempted - 1)
+    }
+// -----------------------------------------------------------------------------------
+  }
+  function toAnalysis(){
+    buttonAudio.play()
+    navigate("/analysis",{state :{score:score,qattempted:Qattempted.length}})
+  }
+    return (
+        <div className='quiz-body'>
+            <div className="quiz-container">
+              <nav className='Nav-bar'>
+                <div className='timer-div'><div>DO YOUR BESTtimer :</div> <div>{Math.floor(timer / 60000)}:{(timer % 60000) / 1000 < 10 ? '0' : ''}{Math.floor((timer % 60000) / 1000)} min</div></div>
+                <div className='info-div'>
+                  <div><span className='one'></span>{Attempted}</div>
+                  <div><span className='two'></span>{Unattempted}</div>
+                </div>
+              </nav>
+              {Questions.map((item)=>{
+                return (
+                  <div key = {item.id} className="question_box">
+                    <div className="div" id="box_1"><h1>{item.question}</h1></div>                   
+                    <button onClick={handleOption} className={`div btn-div box_2 ${item.ans} qn${item.id}`} id="a">{item.a}</button>
+                    <button onClick={handleOption} className={`div btn-div box_3 ${item.ans} qn${item.id}`} id="b">{item.b}</button>
+                    <button onClick={handleOption} className={`div btn-div box_4 ${item.ans} qn${item.id}`} id="c">{item.c}</button>
+                    <button onClick={handleOption} className={`div btn-div box_5 ${item.ans} qn${item.id}`} id="d">{item.d}</button>
+                  </div>
+                  )
+              })}
+              <div className='submit-div'>
+                {/* <Link to={"/analysis"} className='submit-btn'>SUBMIT</Link> */}
+                <button className='submit-btn' onClick={toAnalysis}>SUBMIT</button>
+              </div>
+            </div>
+        </div>
+    );
+}
